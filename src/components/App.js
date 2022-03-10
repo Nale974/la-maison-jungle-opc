@@ -9,13 +9,14 @@ import { useState } from 'react';
 
 function App() {
   const [cart, updateCart] = useState([])
+  const [activeCategory, updateActiveCategory] = useState("")
 
   return (
     <div>
       <Banner/>
       <div className='lmj-layout-inner'>
-				<Cart cart={cart} updateCart={updateCart}/>
-				<ShoppingList cart={cart} updateCart={updateCart} />
+				<Cart cart={cart} updateCart={updateCart} activeCategory={activeCategory} updateActiveCategory={updateActiveCategory}/>
+				<ShoppingList cart={cart} updateCart={updateCart} activeCategory={activeCategory} updateActiveCategory={updateActiveCategory} />
 			</div>
       <Footer/>
       {/* <QuestionForm/> */}

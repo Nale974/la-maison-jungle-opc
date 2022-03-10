@@ -1,8 +1,8 @@
 import './Cart.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 
-const Cart = ({ cart, updateCart }) => {
+const Cart = ({ cart, updateCart, activeCategory, updateActiveCategory }) => {
     
     const [isOpen, setIsOpen] = useState(true)
     
@@ -10,7 +10,19 @@ const Cart = ({ cart, updateCart }) => {
 		(acc, plantType) => acc + plantType.amount * plantType.price,
 		0
 	)
+
+    function RemoveFromCart(plantToDeleteName) {
+		
+        const cartFilteredCurrentPlant = cart.filter(
+            (plant) => plant.name !== plantToDeleteName
+        )
+        updateCart([...cartFilteredCurrentPlant])
+	}
     
+	useEffect(() => {
+		document.title = `LMJ: ${total}€ d'achats`
+	}, [total])
+
     return isOpen ? (
         <div className='lmj-cart'>
 			<button
@@ -26,6 +38,7 @@ const Cart = ({ cart, updateCart }) => {
 						{cart.map(({ name, price, amount }, index) => (
 							<div key={`${name}-${index}`}>
 								{name} {price}€ x {amount}
+                                <button onClick={() => RemoveFromCart(name)}>Retirer</button>
 							</div>
 						))}
 					</ul>
