@@ -5,11 +5,16 @@ import Footer from './Footer/Footer';
 import QuestionForm from './QuestionForm/QuestionForm';
 import ShoppingList from './ShoppingList/ShoppingList'
 import './App.css'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
-  const [cart, updateCart] = useState([])
+  const savedCart = localStorage.getItem('cart')
+  const [cart, updateCart] = useState(savedCart ? JSON.parse(savedCart) : [])
   const [activeCategory, updateActiveCategory] = useState("")
+  
+	useEffect(() => {
+		localStorage.setItem("cart",JSON.stringify(cart))
+	}, [cart])
 
   return (
     <div>
